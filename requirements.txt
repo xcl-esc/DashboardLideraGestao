@@ -36,8 +36,8 @@ PyRect==0.2.0
 PySocks==1.7.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
-pytz==2025.2
-pywin32==311
+pytz==2023.2
+pywin32==311; platform_system=="Windows"
 pywinauto==0.6.9
 RapidFuzz==3.14.1
 reportlab==4.4.3
