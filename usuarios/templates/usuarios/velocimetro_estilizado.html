@@ -1,0 +1,18 @@
+<div class="velocimetro-container" id="container-{{ id }}">
+    <h4 class="velocimetro-titulo">{{ titulo }}</h4>
+    <div class="speedometer_estilizado">
+        <div class="needle_estilizado" id="needle-{{ id }}">
+            <div class="center_estilizado"></div>
+        </div>
+        <span class="score_estilizado" id="score-{{ id }}">0%</span>
+    </div>
+</div>
+
+<script>
+// Inicializa este velocímetro quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        setSpeed('{{ id }}', {{ percentual }}, {{ angulo }});
+    }, 100); // Pequeno delay
+});
+</script>

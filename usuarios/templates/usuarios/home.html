@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LideraGestor - Painel de Gestão</title>
+    <link rel="stylesheet" href="{% static 'usuarios/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'usuarios/css/dashboard.css' %}">
+    <script src="{% static 'usuarios/js/home.js' %}" defer></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="menu-links">
+            <a href="{% url 'home' %}?caixa={{ caixa_escolhida }}" class="active">🏠 Home</a>
+            {% if usuario.nivel != "tecnico" %}
+            <a href="{% url 'panorama' %}?caixa={{ caixa_escolhida }}">🌐 Panorama</a>
+            {% endif %}
+            <a href="{% url 'dashboard' %}?caixa={{ caixa_escolhida }}">📊 Dashboard</a>
+            <a href="{% url 'desempenho' %}?caixa={{ caixa_escolhida }}">📈 Desempenho</a>
+            <a href="{% url 'extracoes' %}?caixa={{ caixa_escolhida }}">⚙️ Extrações</a>
+        </div>
+        <div class="topo-info">
+            <div id="clima" 
+                 data-cidade="{{ cidade_clima }}" 
+                 data-apikey="{{ openweather_api_key }}">
+                <img id="icone-clima" src="" alt="Clima">
+                <span id="cidade">{{ cidade_clima }}</span>: 
+                <span id="temperatura">--</span>°C - 
+                <span id="descricao">--</span>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="container">
+        <h1>🎯 LideraGestor</h1>
+        <p class="subtitulo">Sistema de apoio à liderança e gestão da CGPAG</p>
+        <div class="intro-text">
+            <p>Bem-vindo ao <b>Painel LideraGestor</b>! Aqui você pode acompanhar o desempenho dos técnicos, 
+            a produtividade das caixas e indicadores estratégicos para apoiar gestores e líderes na tomada de decisão.</p>
+        </div>
+
+        <form method="get" class="caixa-form">
+            <label>Escolha a caixa:</label>
+            <select name="caixa" onchange="this.form.submit()">
+                <option value="">-- Selecione uma caixa --</option>
+                {% for c in caixas %}
+                    <option value="{{ c }}" {% if c == caixa_escolhida %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if caixa_escolhida %}
+        <div class="botoes-container">
+            <a href="{% url 'dashboard' %}?caixa={{ caixa_escolhida }}" class="botao">
+                📊 Ver Dashboard Completo
+            </a>
+            <a href="{% url 'desempenho' %}?caixa={{ caixa_escolhida }}" class="botao">
+                📈 Ver Apenas Desempenho
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrações - {{ caixa_escolhida }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'usuarios/css/dashboard.css' %}">
+    <script src="{% static 'usuarios/js/home.js' %}" defer></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}?caixa={{ caixa_escolhida }}">🏠 Home</a>
+        <a href="{% url 'panorama' %}?caixa={{ caixa_escolhida }}">🌐 Panorama</a>
+        <a href="{% url 'dashboard' %}?caixa={{ caixa_escolhida }}">📊 Dashboard</a>
+        <a href="{% url 'desempenho' %}?caixa={{ caixa_escolhida }}">📈 Desempenho</a>
+        <a href="{% url 'extracoes' %}?caixa={{ caixa_escolhida }}" class="active">⚙️ Extrações</a>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- <form method="get" class="caixa-form">
+            <label>Escolha a caixa:</label>
+            <select name="caixa" onchange="this.form.submit()">
+                {% for c in caixas %}
+                    <option value="{{ c }}" {% if c == caixa_escolhida %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select> -->
+        </form>
+
+        <h1>Escolha as automações para executar</h1>
+
+        <form method="post" class="form-automacoes">
+            {% csrf_token %}
+            <label><input type="checkbox" name="automacoes" value="passivo"> Automação Passivo</label><br>
+            <label><input type="checkbox" name="automacoes" value="captura"> Captura de Processos</label><br>
+            <!-- Adicione mais checkboxes conforme novas automações -->
+            <br>
+            <button type="submit" class="botao-desempenho">🚀 Executar</button>
+        </form>
+
+        {% if mensagens %}
+            <div class="dashboard-stats">
+                <h3>Status da execução:</h3>
+                <ul>
+                    {% for msg in mensagens %}
+                        <li>{{ msg }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

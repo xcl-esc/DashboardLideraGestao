@@ -1,0 +1,60 @@
+# ==========================
+# IGNORAR CONFIGURAÇÕES SENSÍVEIS
+# ==========================
+.env
+*.key
+*.pem
+
+# ==========================
+# DJANGO / PYTHON
+# ==========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# SQLite padrão do Django (se você não quiser subir)
+db.sqlite3
+
+# ==========================
+# MIGRATIONS CACHE
+# ==========================
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+# ==========================
+# ARQUIVOS DE LOG / CACHE
+# ==========================
+*.log
+*.pot
+*.py,cover
+*.coverage
+.coverage.*
+.cache
+
+# ==========================
+# VENV E DEPENDÊNCIAS LOCAIS
+# ==========================
+venv/
+ENV/
+env/
+.venv/
+
+# ==========================
+# IDEs
+# ==========================
+.vscode/
+.idea/
+*.swp
+
+# ==========================
+# DOCKER / COMPOSE ARTEFACTS
+# ==========================
+*.pid
+*.seed
+*.pid.lock
+
+# ==========================
+# STATICFILES GERADOS
+# ==========================
+staticfiles/

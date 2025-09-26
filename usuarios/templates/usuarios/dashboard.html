@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - {{ caixa_escolhida }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'usuarios/css/dashboard.css' %}">
+    <script src="{% static 'usuarios/js/home.js' %}" defer></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}?caixa={{ caixa_escolhida }}">🏠 Home</a>
+        <a href="{% url 'panorama' %}?caixa={{ caixa_escolhida }}">🌐 Panorama</a>
+        <a href="{% url 'dashboard' %}?caixa={{ caixa_escolhida }}" class="active">📊 Dashboard</a>
+        <a href="{% url 'desempenho' %}?caixa={{ caixa_escolhida }}">📈 Desempenho</a>
+        <a href="{% url 'extracoes' %}?caixa={{ caixa_escolhida }}">⚙️ Extrações</a>
+    </div>
+    <div class="topo-info">
+            <div id="clima" 
+                 data-cidade="{{ cidade_clima }}" 
+                 data-apikey="{{ openweather_api_key }}">
+                <img id="icone-clima" src="" alt="Clima">
+                <span id="cidade">{{ cidade_clima }}</span>: 
+                <span id="temperatura">--</span>°C - 
+                <span id="descricao">--</span>
+            </div>
+        </div>
+
+    <div class="dashboard-container">
+        <form method="get" class="caixa-form">
+            <label>Escolha a caixa:</label>
+            <select name="caixa" onchange="this.form.submit()">
+                {% for c in caixas %}
+                    <option value="{{ c }}" {% if c == caixa_escolhida %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if caixa_escolhida %}
+            <h1>Dashboard da {{ caixa_escolhida }}</h1>
+            
+            <div class="graficos-container">
+                <div class="grafico">{{ grafico_dia|safe }}</div>
+                <div class="grafico">{{ grafico_mes|safe }}</div>
+            </div>
+            
+            <div class="dashboard-stats">
+                <p>Total concluídos no mês: <b>{{ processos_concluidos }}</b> | 
+                   Dias úteis: <b>{{ dias_uteis }}</b> | 
+                   Meta mensal: <b>{{ meta_mensal }}</b></p>
+            </div>
+
+            <div class="nav-desempenho">
+                <p>Para visualizar os velocímetros de desempenho, acesse a página:</p>
+                <a href="{% url 'desempenho' %}?caixa={{ caixa_escolhida }}" class="botao-desempenho">
+                    📈 Ver Desempenho Detalhado
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html

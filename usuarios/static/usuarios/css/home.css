@@ -1,0 +1,157 @@
+/* ======== VARIÁVEIS DE COR ======== */
+:root {
+    --cor-escura-transparente: #030f187d;
+    --cor-escura: #030f18;
+    --cor-clara: #e0e8e6;
+    --cor-intermediaria: #1d4052;
+    --cor-destaque: #446e87;
+    --cor-acao: #72a3bf;
+}
+
+/* ======== ESTILO GERAL ======== */
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cor-destaque);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: block;
+    color: var(--cor-intermediaria);
+}
+
+/* ======== NAVBAR ======== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(3, 15, 24, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+/* ======== CLIMA ======== */
+.topo-info {
+    background: var(--cor-escura-transparente);
+    backdrop-filter: blur(6px);
+    padding: 5px 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    color: var(--cor-clara);
+}
+
+#clima img {
+    width: 24px;
+    height: 24px;
+}
+
+/* ======== LINKS ======== */
+.menu-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.menu-links a {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--cor-clara);
+    transition: color 0.2s ease;
+}
+
+.menu-links a:hover,
+.menu-links a.active {
+    color: var(--cor-acao);
+}
+
+/* ======== CONTAINER PRINCIPAL ======== */
+.container {
+    background: var(--cor-clara);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    margin: 160px auto 40px auto !important;
+}
+
+/* ======== TÍTULOS E TEXTOS ======== */
+h1 {
+    font-family: 'Syne - bold', sans-serif;
+    font-weight: 900;
+    color: var(--cor-intermediaria);
+    margin-bottom: 30px;
+    
+}
+
+.subtitulo,
+.caixa-form label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    color: var(--cor-destaque);
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--cor-intermediaria);
+    text-align: justify;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ======== FORMULÁRIO ======== */
+.caixa-form select {
+    padding: 12px 20px;
+    border: 2px solid var(--cor-destaque);
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+    background: white;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.caixa-form select:focus {
+    outline: none;
+    border-color: var(--cor-acao);
+}
+
+/* ======== BOTÕES ======== */
+.botoes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.botao {
+    display: inline-block;
+    padding: 15px 30px;
+    background: var(--cor-destaque);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    font-family: 'Inter', sans-serif;
+}
+
+.botao:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: var(--cor-acao);
+}

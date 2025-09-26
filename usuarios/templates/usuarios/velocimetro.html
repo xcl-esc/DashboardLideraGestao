@@ -1,0 +1,11 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'usuarios/css/velocimetro.css' %}">
+
+<div class="speedometer">
+  <div class="circle-background"></div>
+  <div class="circle-foreground"></div>
+  <div class="needle" style="transform: rotate('{{ angulo }}deg');"></div>
+  <div class="center-circle"></div>
+  <div class="percentage">{{ percentual }}%</div>
+</div>

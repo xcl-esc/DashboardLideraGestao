@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desempenho - {{ caixa_escolhida }}</title>
+    <link rel="stylesheet" href="{% static 'usuarios/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'usuarios/css/velocimetro_estilizado.css' %}">
+    <script src="{% static 'usuarios/js/home.js' %}" defer></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}?caixa={{ caixa_escolhida }}">🏠 Home</a>
+        <a href="{% url 'panorama' %}?caixa={{ caixa_escolhida }}">🌐 Panorama</a>
+        <a href="{% url 'dashboard' %}?caixa={{ caixa_escolhida }}">📊 Dashboard</a>
+        <a href="{% url 'desempenho' %}?caixa={{ caixa_escolhida }}" class="active">📈 Desempenho</a>
+        <a href="{% url 'extracoes' %}?caixa={{ caixa_escolhida }}">⚙️ Extrações</a>
+    </div>
+    <div class="topo-info">
+            <div id="clima" 
+                 data-cidade="{{ cidade_clima }}" 
+                 data-apikey="{{ openweather_api_key }}">
+                <img id="icone-clima" src="" alt="Clima">
+                <span id="cidade">{{ cidade_clima }}</span>: 
+                <span id="temperatura">--</span>°C - 
+                <span id="descricao">--</span>
+            </div>
+        </div>
+
+    <div class="container">
+        <form method="get" class="caixa-form">
+            <label>Escolha a caixa:</label>
+            <select name="caixa" onchange="this.form.submit()">
+                {% for c in caixas %}
+                    <option value="{{ c }}" {% if c == caixa_escolhida %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if caixa_escolhida %}
+        <h1>Desempenho da {{ caixa_escolhida }}</h1>
+        
+        <div style="display:flex; gap: 40px; justify-content: center; margin-top: 20px;">
+            <div class="velocimetro-container velocimetro-diario">
+                <h4 class="velocimetro-titulo">Desempenho Diário</h4>
+                {% with angulo=angulo_dia percentual=percentual_dia id="diario" titulo="Diário" %}
+                    {% include 'usuarios/velocimetro_estilizado.html' %}
+                {% endwith %}
+            </div>
+
+            <div class="velocimetro-container velocimetro-mensal">
+                <h4 class="velocimetro-titulo">Desempenho Mensal</h4>
+                {% with angulo=angulo_mes percentual=percentual_mes id="mensal" titulo="Mensal" %}
+                    {% include 'usuarios/velocimetro_estilizado.html' %}
+                {% endwith %}
+            </div>
+        </div>
+
+        <!-- Informações adicionais -->
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+            <p><strong>Processos hoje:</strong> {{ processos_hoje }} | <strong>Meta diária:</strong> {{ meta_diaria }}</p>
+            <p><strong>Total do mês:</strong> {{ processos_concluidos }} | <strong>Meta mensal:</strong> {{ meta_mensal }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'usuarios/js/velocimetro.js' %}"></script>
+</body>
+</html>

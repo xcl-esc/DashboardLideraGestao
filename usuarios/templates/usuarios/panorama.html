@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Panorama</title>
+    <link rel="stylesheet" href="{% static 'usuarios/css/panorama.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700&family=Syne:wght@700&display=swap" rel="stylesheet">
+    <script src="{% static 'usuarios/js/home.js' %}" defer></script>
+    <script src="{% static 'usuarios/js/panorama.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}?caixa={{ caixa_escolhida }}">🏠 Home</a>
+        <a href="{% url 'panorama' %}?caixa={{ caixa_escolhida }}" class="active">🌐 Panorama</a>
+        <a href="{% url 'dashboard' %}?caixa={{ caixa_escolhida }}">📊 Dashboard</a>
+        <a href="{% url 'desempenho' %}?caixa={{ caixa_escolhida }}">📈 Desempenho</a>
+        <a href="{% url 'extracoes' %}">Extrações</a>
+    </div>
+    <div class="topo-info">
+            <div id="clima" 
+                 data-cidade="{{ cidade_clima }}" 
+                 data-apikey="{{ openweather_api_key }}">
+                <img id="icone-clima" src="" alt="Clima">
+                <span id="cidade">{{ cidade_clima }}</span>: 
+                <span id="temperatura">--</span>°C - 
+                <span id="descricao">--</span>
+            </div>
+        </div>
+
+    <h1>Painel Panorama</h1>
+
+    <!-- Containers para os gráficos -->
+    <div class="graficos-container">
+        <div class="linha-graficos">
+            <div class="grafico-wrapper">
+                <!-- Injetando os dados JSON da view no atributo data-config -->
+                <canvas id="graficoBarra" data-config="{{ dados_barra_json }}"></canvas>
+            </div>
+            <div class="grafico-wrapper">
+                <!-- Injetando os dados JSON da view no atributo data-config -->
+                <canvas id="graficoLinha" data-config="{{ dados_linha_json }}"></canvas>
+            </div>   
+        </div>
+        <div class="grafico-wrapper grafico-pizza">
+            <!-- Injetando os dados JSON da view no atributo data-config -->
+            <canvas id="graficoPizza" data-config="{{ dados_pizza_json }}"></canvas>
+        </div>
+    </div>
+</body>
+</html>

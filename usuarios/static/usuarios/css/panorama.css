@@ -1,0 +1,197 @@
+/* ======== VARIÁVEIS DE COR ======== */
+:root {
+    --cor-escura-transparente: #030f1834;
+    --cor-escura: #030f18;
+    --cor-clara: #e0e8e6;
+    --cor-intermediaria: #1d4052;
+    --cor-destaque: #446e87;
+    --cor-acao: #72a3bf;
+}
+/* ======== FUNDO DA PÁGINA ======== */
+body {
+    min-height: 100vh;
+    background: url("../img/panorama_background.svg") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: 'Syne', sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+    background: var(--cor-escura);
+    padding: 25px 0;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ======== CLIMA ======== */
+.topo-info {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    padding: 3px 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    color: var(--cor-clara);
+    font-size: 0.85rem;
+    max-width: 180px;
+}
+
+#clima img {
+    width: 18px;
+    height: 18px;
+}
+
+.navbar a {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.navbar a.active {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+}
+
+/* CONTAINER PRINCIPAL */
+.panorama-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* TÍTULO */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* CONTAINER DE GRÁFICOS */
+.graficos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.linha-graficos {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.grafico-wrapper {
+    width: 40%; /* 👈 controla a largura (menos da metade da tela) */
+    max-width: 500px; /* 👈 evita ficar gigante em telas muito largas */
+    min-width: 250px; /* 👈 evita ficar minúsculo em telas pequenas */
+}
+
+.grafico-pizza {
+    width: 30%;
+    max-width: 350px;
+}
+
+.grafico-wrapper canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.grafico-barra {
+    position: relative;
+    background: url("../img/retangulo.svg") no-repeat center center;
+    background-size: cover; 
+    padding: 20px; 
+    border-radius: 15px;
+}
+
+/* Retângulo atrás do graficoLinha */
+.grafico-linha {
+    position: relative;
+    background: url("../img/retangulo.svg") no-repeat center center;
+    background-size: cover;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.grafico-pizza {
+    margin: 30px auto 0 auto;  /* 👈 centraliza horizontalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("../img/retangulo_grande.svg") no-repeat center center;
+    background-size: cover;
+    padding: 20px;
+    border-radius: 20px;
+    width: 40%;      /* 👈 largura parecida com os outros */
+    max-width: 500px;
+}
+
+/* ESTILO DOS GRÁFICOS */
+.grafico {
+    width: 70%; /* <-- diminui a largura dos gráficos */
+    max-width: 700px; /* <-- impede que fiquem enormes em telas grandes */
+    background: transparent; /* <-- remove fundo branco */
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: none; /* remove sombra se quiser deixar mais clean */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease forwards;
+}
+
+
+/* PARA OS GRÁFICOS PLOTLY ESPECIFICAMENTE */
+.plotly-graph-div {
+    background: transparent !important;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .navbar a {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .panorama-container {
+        padding: 10px;
+    }
+
+    @media (max-width: 768px) {
+    .graficos-container {
+        gap: 20px;
+    }
+    
+    .grafico {
+        min-width: unset;
+        width: 95%;
+        padding: 15px;
+    }
+}}

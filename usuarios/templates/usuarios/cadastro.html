@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>LideraGestão - Crie sua conta</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'usuarios/css/cadastro.css' %}">
+</head>
+<body>
+
+  <main class="login-page-container">
+    <div class="login-promo-panel">
+        <div class="promo-content">
+            <h2>Integra</h2>
+            <img src="{% static 'usuarios/img/Governo-Federal.svg' %}" 
+            alt="Logo Governo Federal" 
+            class="logo-governo">
+              <img src="{% static 'usuarios/img/icon3.svg' %}" 
+              alt="Logo Integra" 
+              class="logo-integra">
+        </div>
+    </div>
+    <div class="login-form-panel">
+      <form id="cadastro-form" method="POST">
+        {% csrf_token %}
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <h1>Crie sua conta:</h1>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+          <div class="form-group">
+            <label for="sobrenome">Sobrenome</label>
+            <input type="text" id="sobrenome" name="sobrenome" required>
+          </div>
+        </div>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <p class="input-hint">Email deve ser outlook</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required>
+            <p class="input-hint">
+              A senha deve conter:<br>
+              ✖ Pelo menos 1 letra maiúscula.<br>
+              ✖ Mais de 6 caracteres.
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="confirme-senha">Confirme Sua Senha</label>
+            <input type="password" id="confirme-senha" name="confirme-senha" required>
+            <p class="input-hint">A senha deverá ser igual à anterior.</p>
+          </div>
+        </div>
+        
+
+        <label for="codigo">Código de Acesso (opcional)</label>
+        <input type="text" id="codigo" name="codigo" placeholder="Informe o código se tiver">
+
+        <button type="submit" class="button-estilo-card">Criar Conta</button>
+
+        <p id="cadastro-erro" class="error-message"></p>
+
+        <p class="signup-link">
+          Já possui uma conta? <a href="{% url 'login' %}"><strong>Login</strong></a>
+        </p>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>

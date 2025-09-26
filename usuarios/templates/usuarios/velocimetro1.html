@@ -1,0 +1,15 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'usuarios/css/velocimetro1.css' %}">
+</head>
+
+<body>
+    <div class="speedometer">
+        <div class="needle" style="--score:{{ score }}">
+            <span class="score">{{ score }}</span>
+        </div>
+    </div>
+</body>
+</html>

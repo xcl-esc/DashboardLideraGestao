@@ -1,0 +1,336 @@
+
+
+body {
+    font-family: Arial, sans-serif; /* Mantido genérico, mas idealmente seria Montserrat/Poppins */
+    margin: 0;
+    padding: 0;
+    background-image: url("/static/usuarios/img/Group5.svg");/* Ajuste o caminho se necessário */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Garante que o body ocupe toda a altura */
+    display: flex; /* Adicionado para o layout de página inteira */
+    flex-direction: column; /* Adicionado para o layout de página inteira */
+}
+  header {
+    background: rgba(134, 110, 153, 0.07);
+    color: white;
+    padding: 30px 0; /* Aumentei o padding para dar mais respiro */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 100%; /* Garante que o header ocupe toda a largura */
+    box-sizing: border-box;
+}
+
+nav.main-nav { /* Usando a classe do seu criarconta.html */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Para centralizar o conteúdo da nav */
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo img { /* Estilo para o ícone do logo */
+    height: 40px;
+    margin-right: 10px;
+}
+
+.logo span { /* Estilo para o texto do logo */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 27px;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.menu {
+    flex-grow: 1; /* Permite que o menu ocupe espaço e centralize */
+    display: flex;
+    justify-content: center;
+}
+
+.menu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 45px; /* Espaço entre os itens do menu */
+}
+
+.menu ul li a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px; /* Ajuste de tamanho */
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.85);
+    transition: color 0.3s;
+}
+
+.menu ul li a:hover {
+    color: #e0c8f5;
+}
+/* --- Layout Principal da Página de Login --- */
+.login-page-container {
+    display: flex;
+    width: 100%;
+    flex-grow: 1; /* Para ocupar o restante da altura da tela */
+    position: relative; /* ESSENCIAL: torna este o "pai" posicional */
+    overflow: hidden;   /* Garante que nada vaze para fora da área principal */
+}
+
+
+/* 3. (Opcional) Ajustamos o texto no painel roxo para não ficar atrás da imagem */
+.login-promo-panel .promo-content {
+
+    padding-bottom: 150px; 
+}
+
+
+/* --- Painel da Esquerda  --- */
+.login-promo-panel {
+    flex-basis: 50%; /* No código anterior era 30%, ajuste se necessário */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    
+    /* MUDANÇA PRINCIPAL: Alinha o conteúdo no topo */
+    justify-content: flex-start; 
+
+    align-items: center; /* Mantém o conteúdo centralizado horizontalmente */
+    
+    /* ADICIONADO: Espaçamento para o texto não colar no topo */
+    padding-top: 80px; 
+
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.promo-content {
+    text-align: center;
+}
+
+.promo-content h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;          /* Ajuste conforme o design */
+    color: #2D2D2D;
+    background-color: #EDF3F1;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0;
+
+    position: absolute;       /* Coloca no canto */
+    top: 20px;                /* Distância do topo */
+    left: 20px;               /* Distância da esquerda */
+}
+
+.logo-governo {
+    position: absolute;
+    bottom: 20px;            /* Distância do fundo */
+    left: 20px;              /* Distância da esquerda */
+    background-color: #EDF3F1;
+    padding: 10px 20px;      /* Caixa ao redor da imagem */
+    display: inline-block;
+    border-radius: 8px;      /* Se quiser cantos arredondados, senão pode tirar */
+    height: 80px;            /* Ajuste o tamanho até harmonizar com o "Integra" */
+}
+
+.logo-integra {
+    position: absolute;
+    bottom: 20px;    /* Distância do fundo */
+    right: -1070px;     /* Distância da direita */
+    height: 90px;    /* Ajuste o tamanho conforme necessário */
+}
+
+
+
+/* --- Painel da Direita (Branco) --- */
+.login-form-panel {
+    flex-basis: 70%;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    border-radius: 60px 0 0 60px;
+        /* sombra leve só na esquerda */
+    box-shadow: -10px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Estilos do Formulário --- */
+#login-form {
+    width: 100%;
+    max-width: 800px;
+}
+
+#login-form h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem; /* 48px */
+    font-weight: 700;
+    color: #220E30;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+#login-form label {
+    display: block;
+    font-size: 1rem; /* 16px */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+#login-form input[type="email"],
+#login-form input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border: 1px solid #DCDCDC;
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+#login-form input:focus {
+    outline: none;
+    border-color: #9558e0;
+    box-shadow: 0 0 5px rgba(109, 32, 197, 0.2);
+}
+
+.input-hint {
+    font-size: 0.8rem; /* 12.8px */
+    color: #888;
+    margin: 0 0 20px 0;
+}
+
+.password-actions {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.forgot-password {
+    font-size: 0.9rem; /* 14.4px */
+    color: #888;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+#login-form button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem; /* 17.6px */
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: #1D4053;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#login-form button[type="submit"]:hover {
+    background-color: #122d3b;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    color: #555;
+    font-weight: 500;
+}
+
+.signup-link a {
+    color: #1D4053;
+    text-decoration: none;
+}
+
+.error-message {
+    color: #D32F2F;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
+    height: 20px;
+}
+
+.button-estilo-card {
+    background: #1D4053;
+    color: white;
+    border-radius: 15px;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 70px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-estilo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Telas grandes (>= 1366px) - tamanho original */
+.overlapping-image {
+    height: 600px;
+}
+
+/* A partir de 1200px */
+@media (max-width: 1400px) {
+    .overlapping-image {
+        height: 350px;
+    }
+}
+
+/* A partir de 992px (notebooks menores) */
+@media (max-width: 992px) {
+    .overlapping-image {
+        height: 400px;
+    }
+}
+
+/* A partir de 768px (tablets) */
+@media (max-width: 768px) {
+    .overlapping-image {
+        height: 300px;
+    }
+}
+
+/* A partir de 576px (celulares grandes) */
+@media (max-width: 576px) {
+    .overlapping-image {
+        height: 220px;
+    }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 400px) {
+    .overlapping-image {
+        height: 180px;
+    }
+}
