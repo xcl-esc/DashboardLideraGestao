@@ -1,0 +1,11 @@
+django==5.2
+
+python-dotenv
+
+pytz==2023.3
+
+plotly==5.18.0
+
+workalendar==16.1.0
+
+pandas==2.0.3
