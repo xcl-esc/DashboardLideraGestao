@@ -8,6 +8,6 @@ plotly==5.18.0
 
 workalendar==16.1.0
 
-pandas==2.0.3
+pandas>=2.2.3
 
 gunicorn
