@@ -10,4 +10,6 @@ workalendar==16.1.0
 
 pandas>=2.2.3
 
+selenium==4.35.0
+
 gunicorn
