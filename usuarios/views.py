@@ -19,9 +19,9 @@ from workalendar.america import Brazil
 
 from .models import Usuario
 from .config_caixas import RESPONSAVEIS_POR_CAIXA, METAS_POR_CAIXA, BASE_PATH
-from Automacoes.captura_processos import CapturaProcessos
-from Automacoes.db_processos import GerenciadorDB
-from Automacoes.passivoteste import AutomacaoPassivo
+# from Automacoes.captura_processos import CapturaProcessos
+# from Automacoes.db_processos import GerenciadorDB
+# from Automacoes.passivoteste import AutomacaoPassivo
 
 load_dotenv(override=True)
 logging.basicConfig(
@@ -41,71 +41,71 @@ def extracoes(request):
     """View para executar automações de extração de dados."""
     mensagens = []
 
-    if request.method == "POST":
-        automacoes_selecionadas = request.POST.getlist("automacoes")
+    # if request.method == "POST":
+    #     automacoes_selecionadas = request.POST.getlist("automacoes")
 
-        try:
-            USUARIO = os.getenv("USER_EMAIL")
-            SENHA = os.getenv("USER_PASSWORD")
-            UNIDADE = os.getenv("UNIDADE")
-            BASES_DADOS_DIR = settings.BASES_DADOS_DIR
+    #     try:
+    #         USUARIO = os.getenv("USER_EMAIL")
+    #         SENHA = os.getenv("USER_PASSWORD")
+    #         UNIDADE = os.getenv("UNIDADE")
+    #         BASES_DADOS_DIR = settings.BASES_DADOS_DIR
 
-            db = GerenciadorDB(base_dir=BASES_DADOS_DIR, unidade=UNIDADE)
+    #         db = GerenciadorDB(base_dir=BASES_DADOS_DIR, unidade=UNIDADE)
 
-            automacao_sei = AutomacaoPassivo(
-                usuario=USUARIO,
-                senha=SENHA,
-                unidade=UNIDADE
-            )
+    #         automacao_sei = AutomacaoPassivo(
+    #             usuario=USUARIO,
+    #             senha=SENHA,
+    #             unidade=UNIDADE
+    #         )
 
-            if not automacao_sei._inicializar_navegador():
-                mensagens.append("Erro ao iniciar o navegador.")
-                return render(request, "usuarios/extracoes.html", {
-                    "mensagens": mensagens
-                })
+    #         if not automacao_sei._inicializar_navegador():
+    #             mensagens.append("Erro ao iniciar o navegador.")
+    #             return render(request, "usuarios/extracoes.html", {
+    #                 "mensagens": mensagens
+    #             })
 
-            if not automacao_sei._realizar_login():
-                mensagens.append("Erro no login. Verifique as credenciais.")
-                return render(request, "usuarios/extracoes.html", {
-                    "mensagens": mensagens
-                })
+    #         if not automacao_sei._realizar_login():
+    #             mensagens.append("Erro no login. Verifique as credenciais.")
+    #             return render(request, "usuarios/extracoes.html", {
+    #                 "mensagens": mensagens
+    #             })
 
-            automacao_sei._fechar_tela_aviso()
-            automacao_sei._selecionar_unidade_mgi()
-            mensagens.append("Login e seleção da unidade realizados com sucesso.")
+    #         automacao_sei._fechar_tela_aviso()
+    #         automacao_sei._selecionar_unidade_mgi()
+    #         mensagens.append("Login e seleção da unidade realizados com sucesso.")
 
-            driver_logado = automacao_sei.driver
+    #         driver_logado = automacao_sei.driver
 
-            # Executa automações selecionadas
-            if "passivo" in automacoes_selecionadas:
-                mensagens.append("Automação 'passivo' executada com sucesso!")
+    #         # Executa automações selecionadas
+    #         if "passivo" in automacoes_selecionadas:
+    #             mensagens.append("Automação 'passivo' executada com sucesso!")
 
-            if "captura" in automacoes_selecionadas:
-                captura = CapturaProcessos(driver_logado, db)
-                captura.capturar_caixa('técnicos')
-                mensagens.append(
-                    f"Captura de processos da unidade '{UNIDADE}' finalizada."
-                )
+    #         if "captura" in automacoes_selecionadas:
+    #             captura = CapturaProcessos(driver_logado, db)
+    #             captura.capturar_caixa('técnicos')
+    #             mensagens.append(
+    #                 f"Captura de processos da unidade '{UNIDADE}' finalizada."
+    #             )
 
-        except Exception as e:
-            mensagens.append(f"Erro durante execução: {e}")
+    #     except Exception as e:
+    #         mensagens.append(f"Erro durante execução: {e}")
 
-        finally:
-            # Fecha conexões e navegador
-            try:
-                if 'db' in locals() and db:
-                    db.fechar()
-                    mensagens.append("Conexão com o banco fechada.")
-            except Exception:
-                pass
+    #     finally:
+    #         # Fecha conexões e navegador
+    #         try:
+    #             if 'db' in locals() and db:
+    #                 db.fechar()
+    #                 mensagens.append("Conexão com o banco fechada.")
+    #         except Exception:
+    #             pass
 
-            try:
-                if 'driver_logado' in locals() and driver_logado:
-                    time.sleep(2)
-                    driver_logado.quit()
-                    mensagens.append("Navegador fechado com sucesso.")
-            except Exception:
-                pass
+    #         try:
+    #             if 'driver_logado' in locals() and driver_logado:
+    #                 time.sleep(2)
+    #                 driver_logado.quit()
+    #                 mensagens.append("Navegador fechado com sucesso.")
+    #         except Exception:
+    #             pass
 
     return render(request, "usuarios/extracoes.html", {"mensagens": mensagens})
 
