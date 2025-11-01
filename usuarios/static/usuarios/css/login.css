@@ -1,31 +1,29 @@
-
-
 body {
-    font-family: Arial, sans-serif; /* Mantido genérico, mas idealmente seria Montserrat/Poppins */
+    font-family: Arial, sans-serif; 
     margin: 0;
     padding: 0;
-    background-image: url("/static/usuarios/img/Group5.svg");/* Ajuste o caminho se necessário */
+    background-image: url("/static/usuarios/img/Group5.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh; /* Garante que o body ocupe toda a altura */
-    display: flex; /* Adicionado para o layout de página inteira */
-    flex-direction: column; /* Adicionado para o layout de página inteira */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
   header {
     background: rgba(134, 110, 153, 0.07);
     color: white;
-    padding: 30px 0; /* Aumentei o padding para dar mais respiro */
+    padding: 30px 0; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    width: 100%; /* Garante que o header ocupe toda a largura */
+    width: 100%; 
     box-sizing: border-box;
 }
 
-nav.main-nav { /* Usando a classe do seu criarconta.html */
+nav.main-nav { 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; /* Para centralizar o conteúdo da nav */
+    max-width: 1200px; 
     margin: 0 auto;
     padding: 0 40px;
 }
@@ -41,12 +39,12 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
     text-decoration: none;
 }
 
-.logo img { /* Estilo para o ícone do logo */
+.logo img {
     height: 40px;
     margin-right: 10px;
 }
 
-.logo span { /* Estilo para o texto do logo */
+.logo span {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 27px;
@@ -55,7 +53,7 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 }
 
 .menu {
-    flex-grow: 1; /* Permite que o menu ocupe espaço e centralize */
+    flex-grow: 1;
     display: flex;
     justify-content: center;
 }
@@ -65,13 +63,13 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 45px; /* Espaço entre os itens do menu */
+    gap: 45px;
 }
 
 .menu ul li a {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 20px; /* Ajuste de tamanho */
+    font-size: 20px;
     color: #FFFFFF;
     text-decoration: none;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.85);
@@ -81,38 +79,29 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 .menu ul li a:hover {
     color: #e0c8f5;
 }
-/* --- Layout Principal da Página de Login --- */
+
 .login-page-container {
     display: flex;
     width: 100%;
-    flex-grow: 1; /* Para ocupar o restante da altura da tela */
-    position: relative; /* ESSENCIAL: torna este o "pai" posicional */
-    overflow: hidden;   /* Garante que nada vaze para fora da área principal */
+    flex-grow: 1;
+    position: relative; 
+    overflow: hidden;   
 }
 
-
-/* 3. (Opcional) Ajustamos o texto no painel roxo para não ficar atrás da imagem */
 .login-promo-panel .promo-content {
 
     padding-bottom: 150px; 
 }
 
 
-/* --- Painel da Esquerda  --- */
 .login-promo-panel {
-    flex-basis: 50%; /* No código anterior era 30%, ajuste se necessário */
+    flex-basis: 50%;
     color: white;
     display: flex;
     flex-direction: column;
-    
-    /* MUDANÇA PRINCIPAL: Alinha o conteúdo no topo */
     justify-content: flex-start; 
-
-    align-items: center; /* Mantém o conteúdo centralizado horizontalmente */
-    
-    /* ADICIONADO: Espaçamento para o texto não colar no topo */
+    align-items: center;
     padding-top: 80px; 
-
     padding-left: 40px;
     padding-right: 40px;
     padding-bottom: 40px;
@@ -127,39 +116,35 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 .promo-content h2 {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
-    font-size: 4rem;          /* Ajuste conforme o design */
+    font-size: 4rem;
     color: #2D2D2D;
     background-color: #EDF3F1;
     display: inline-block;
     padding: 10px 20px;
     margin: 0;
-
-    position: absolute;       /* Coloca no canto */
-    top: 20px;                /* Distância do topo */
-    left: 20px;               /* Distância da esquerda */
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
 .logo-governo {
     position: absolute;
-    bottom: 20px;            /* Distância do fundo */
-    left: 20px;              /* Distância da esquerda */
+    bottom: 20px;
+    left: 20px;
     background-color: #EDF3F1;
-    padding: 10px 20px;      /* Caixa ao redor da imagem */
+    padding: 10px 20px;
     display: inline-block;
-    border-radius: 8px;      /* Se quiser cantos arredondados, senão pode tirar */
-    height: 80px;            /* Ajuste o tamanho até harmonizar com o "Integra" */
+    border-radius: 8px;
+    height: 80px;
 }
 
 .logo-integra {
     position: absolute;
-    bottom: 20px;    /* Distância do fundo */
-    right: -1070px;     /* Distância da direita */
-    height: 90px;    /* Ajuste o tamanho conforme necessário */
+    bottom: 20px;
+    right: -1070px;
+    height: 90px;
 }
 
-
-
-/* --- Painel da Direita (Branco) --- */
 .login-form-panel {
     flex-basis: 70%;
     background-color: #FFFFFF;
@@ -169,11 +154,9 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
     padding: 40px;
     box-sizing: border-box;
     border-radius: 60px 0 0 60px;
-        /* sombra leve só na esquerda */
     box-shadow: -10px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Estilos do Formulário --- */
 #login-form {
     width: 100%;
     max-width: 800px;
@@ -181,7 +164,7 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 
 #login-form h1 {
     font-family: 'Poppins', sans-serif;
-    font-size: 3rem; /* 48px */
+    font-size: 3rem;
     font-weight: 700;
     color: #220E30;
     margin-top: 0;
@@ -190,7 +173,7 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 
 #login-form label {
     display: block;
-    font-size: 1rem; /* 16px */
+    font-size: 1rem;
     font-weight: 600;
     color: #333;
     margin-bottom: 8px;
@@ -215,7 +198,7 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 }
 
 .input-hint {
-    font-size: 0.8rem; /* 12.8px */
+    font-size: 0.8rem;
     color: #888;
     margin: 0 0 20px 0;
 }
@@ -226,7 +209,7 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 }
 
 .forgot-password {
-    font-size: 0.9rem; /* 14.4px */
+    font-size: 0.9rem;
     color: #888;
     text-decoration: none;
     font-weight: 500;
@@ -239,7 +222,7 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
 #login-form button[type="submit"] {
     width: 100%;
     padding: 15px;
-    font-size: 1.1rem; /* 17.6px */
+    font-size: 1.1rem;
     font-weight: 700;
     color: #FFFFFF;
     background-color: #1D4053;
@@ -294,41 +277,34 @@ nav.main-nav { /* Usando a classe do seu criarconta.html */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-
-/* Telas grandes (>= 1366px) - tamanho original */
 .overlapping-image {
     height: 600px;
 }
 
-/* A partir de 1200px */
 @media (max-width: 1400px) {
     .overlapping-image {
         height: 350px;
     }
 }
 
-/* A partir de 992px (notebooks menores) */
 @media (max-width: 992px) {
     .overlapping-image {
         height: 400px;
     }
 }
 
-/* A partir de 768px (tablets) */
 @media (max-width: 768px) {
     .overlapping-image {
         height: 300px;
     }
 }
 
-/* A partir de 576px (celulares grandes) */
 @media (max-width: 576px) {
     .overlapping-image {
         height: 220px;
     }
 }
 
-/* Telas muito pequenas */
 @media (max-width: 400px) {
     .overlapping-image {
         height: 180px;

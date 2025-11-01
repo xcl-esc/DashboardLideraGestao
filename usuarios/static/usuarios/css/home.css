@@ -1,4 +1,3 @@
-/* ======== VARIÁVEIS DE COR ======== */
 :root {
     --cor-escura-transparente: #030f187d;
     --cor-escura: #030f18;
@@ -8,7 +7,6 @@
     --cor-acao: #72a3bf;
 }
 
-/* ======== ESTILO GERAL ======== */
 body {
     font-family: 'Inter', sans-serif;
     background: var(--cor-destaque);
@@ -19,7 +17,6 @@ body {
     color: var(--cor-intermediaria);
 }
 
-/* ======== NAVBAR ======== */
 .navbar {
     position: fixed;
     top: 0;
@@ -35,7 +32,6 @@ body {
     padding: 10px 0;
 }
 
-/* ======== CLIMA ======== */
 .topo-info {
     background: var(--cor-escura-transparente);
     backdrop-filter: blur(6px);
@@ -56,7 +52,6 @@ body {
     height: 24px;
 }
 
-/* ======== LINKS ======== */
 .menu-links {
     display: flex;
     gap: 20px;
@@ -75,7 +70,6 @@ body {
     color: var(--cor-acao);
 }
 
-/* ======== CONTAINER PRINCIPAL ======== */
 .container {
     background: var(--cor-clara);
     padding: 40px;
@@ -87,7 +81,6 @@ body {
     margin: 160px auto 40px auto !important;
 }
 
-/* ======== TÍTULOS E TEXTOS ======== */
 h1 {
     font-family: 'Syne - bold', sans-serif;
     font-weight: 900;
@@ -111,7 +104,6 @@ h1 {
     font-family: 'Inter', sans-serif;
 }
 
-/* ======== FORMULÁRIO ======== */
 .caixa-form select {
     padding: 12px 20px;
     border: 2px solid var(--cor-destaque);
@@ -129,7 +121,6 @@ h1 {
     border-color: var(--cor-acao);
 }
 
-/* ======== BOTÕES ======== */
 .botoes-container {
     display: flex;
     flex-direction: column;

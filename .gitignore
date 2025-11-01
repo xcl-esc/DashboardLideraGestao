@@ -1,60 +1,42 @@
-# ==========================
-# IGNORAR CONFIGURAÇÕES SENSÍVEIS
-# ==========================
 .env
 *.key
 *.pem
 
-# ==========================
-# DJANGO / PYTHON
-# ==========================
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-
-# SQLite padrão do Django (se você não quiser subir)
+*.pdb
+*.so
+*.egg-info/
 db.sqlite3
 
-# ==========================
-# MIGRATIONS CACHE
-# ==========================
 */migrations/__pycache__/
 */migrations/*.pyc
+*/migrations/*.pyo
 
-# ==========================
-# ARQUIVOS DE LOG / CACHE
-# ==========================
 *.log
 *.pot
 *.py,cover
 *.coverage
 .coverage.*
-.cache
+.cache/
+local_settings.py
 
-# ==========================
-# VENV E DEPENDÊNCIAS LOCAIS
-# ==========================
 venv/
 ENV/
 env/
 .venv/
 
-# ==========================
-# IDEs
-# ==========================
 .vscode/
 .idea/
 *.swp
 
-# ==========================
-# DOCKER / COMPOSE ARTEFACTS
-# ==========================
 *.pid
 *.seed
 *.pid.lock
 
-# ==========================
-# STATICFILES GERADOS
-# ==========================
 staticfiles/
+
+readme.txt
+Bases/

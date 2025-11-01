@@ -10,7 +10,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from .db_processos import GerenciadorDB
 from .SEI_Geral import VisualizacaoDetalhada, BotaoProximaPagina, TempoAleatorio, NivelDetalheTecnicos
 
-# Configura o logging para mostrar mensagens no terminal
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
@@ -69,13 +68,12 @@ class CapturaProcessos:
         vis_detalhada.visualizar_detalhado()
         time.sleep(TempoAleatorio().tempo_aleatorio())
 
-        # CHAMA A CLASSE QUE VAI PADRONIZAR A TABELA
-        # NivelDetalheTecnicos é o nome da sua classe que faz a padronização
+        # Chamar NivelDetalheTecnicos para padronizar tabela
+        
         nivel_detalhe = NivelDetalheTecnicos(self.driver)
-        nivel_detalhe.detalhar_nivel_tecnicos() # Chame o método que faz a padronização
+        nivel_detalhe.detalhar_nivel_tecnicos()
         time.sleep(TempoAleatorio().tempo_aleatorio())
 
-        
         # 3. Rolar a página para carregar todos os elementos
         logging.info("Rolando a página para garantir que todos os elementos estejam visíveis.")
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -86,7 +84,6 @@ class CapturaProcessos:
         botao_prox = BotaoProximaPagina(self.driver)
 
         while True:
-            # VOLTAR AO INÍCIO DA PÁGINA ANTES DA EXTRAÇÃO
             self.driver.execute_script("window.scrollTo(0, 0);")
             time.sleep(1)
 
@@ -95,15 +92,6 @@ class CapturaProcessos:
             
             self.db.inserir_ou_atualizar(processos)
             
-            # 4. Voltar para o contexto da página principal
-            # try:
-            #     self.driver.switch_to.default_content()
-            #     logging.info("Voltado para o contexto da página principal.")
-            # except Exception as e:
-            #     logging.error(f"Erro ao tentar voltar para a página principal: {e}")
-            #     break
-
-            # ===== LÓGICA DE DETECÇÃO E CLIQUE NO BOTÃO PRÓXIMA PÁGINA (SUPERIOR E INFERIOR) =====
             next_btn = None
             
             try:
@@ -118,21 +106,13 @@ class CapturaProcessos:
                     logging.info("Botão 'Próxima página' inferior encontrado.")
                 except NoSuchElementException:
                     logging.info("Nenhum botão 'Próxima página' encontrado. Fim da tabela.")
-                    break # Sai do loop se nenhum botão for encontrado
+                    break
 
             # Se um botão foi encontrado, clica nele
             if next_btn:
                 try:
                     next_btn.click()
                     time.sleep(TempoAleatorio().tempo_aleatorio())
-
-                    # 5. Alternar de volta para o iframe após o carregamento da nova página
-                    # try:
-                    #     self.driver.switch_to.frame("ifrVisualizacaoDetalhada")
-                    #     logging.info("Voltado para o iframe 'ifrVisualizacaoDetalhada' após a navegação.")
-                    # except Exception as e:
-                    #     logging.error(f"Erro ao voltar para o iframe após clicar em 'Próxima Página': {e}")
-                    #     break
 
                 except NoSuchElementException:
                     logging.info("Botão 'Próxima página' não encontrado ao tentar clicar.")

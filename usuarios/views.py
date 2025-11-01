@@ -76,7 +76,6 @@ def extracoes(request):
 
             driver_logado = automacao_sei.driver
 
-            # Executa automações selecionadas
             if "passivo" in automacoes_selecionadas:
                 mensagens.append("Automação 'passivo' executada com sucesso!")
 
@@ -91,7 +90,6 @@ def extracoes(request):
             mensagens.append(f"Erro durante execução: {e}")
 
         finally:
-            # Fecha conexões e navegador
             try:
                 if 'db' in locals() and db:
                     db.fechar()
@@ -187,13 +185,11 @@ def panorama_view(request):
     usuario_id = request.session.get("usuario_id")
     usuario = Usuario.objects.get(id=usuario_id) if usuario_id else None
 
-    # Controle de acesso
     if not usuario or usuario.nivel not in ["admin", "dev", "gestor"]:
         return HttpResponseForbidden(
             "Você não tem permissão para acessar o Panorama."
         )
-
-    # Simulação de dados
+    
     caixa_escolhida = request.GET.get("caixa", "DEMO")
     caixas = ["CGPAG-ANIST", "CGPAG-REPER", "CGPAG-CIVRES", "CGPAG-GERAL"]
     tecnicos = ["Ana", "Carlos", "Fernanda", "João", "Marcos"]
@@ -202,10 +198,6 @@ def panorama_view(request):
     concluidos = 50
     concluidos_por_caixa = {c: random.randint(5, 20) for c in caixas}
     concluidos_por_tecnico = {t: random.randint(3, 15) for t in tecnicos}
-    
-    # ----------------------------------------------------
-    # PREPARAÇÃO DOS DADOS PARA CHART.JS (JSON SERIALIZÁVEL)
-    # ----------------------------------------------------
 
     # 1. Gráfico de Barras (Caixas)
     dados_barra = {
@@ -214,14 +206,14 @@ def panorama_view(request):
         'titulo': 'Processos Concluídos por Caixa (Ontem)'
     }
 
-    # 2. Gráfico de Linha (Usamos dados dos Técnicos para simular)
+    # 2. Gráfico de Linha
     dados_linha = {
         'labels': list(concluidos_por_tecnico.keys()),
         'data': list(concluidos_por_tecnico.values()),
         'titulo': 'Desempenho por Técnico (Processos Concluídos)'
     }
 
-    # 3. Gráfico de Pizza (Passivos x Concluídos)
+    # 3. Gráfico de Pizza
     dados_pizza = {
         'labels': ["Passivos", "Concluídos"],
         'data': [passivos, concluidos],
@@ -422,9 +414,3 @@ def desempenho_view(request):
     }
 
     return render(request, "usuarios/desempenho.html", context)
-
-
-# def velocimetro1(request):
-#     """View para velocímetro de exemplo."""
-#     context = {"score": 10}
-#     return render(request, "usuarios/velocimetro1.html", context)

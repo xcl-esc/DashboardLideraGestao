@@ -11,7 +11,6 @@ body {
     flex-direction: column;
 }
 
-/* Header e Nav - estrutura do arquivo que funciona */
 header {
     background: rgba(134, 110, 153, 0.07);
     color: white;
@@ -82,7 +81,6 @@ nav.main-nav {
     color: #e0c8f5;
 }
 
-/* --- Layout Principal --- */
 .login-page-container {
     display: flex;
     width: 100%;
@@ -91,7 +89,6 @@ nav.main-nav {
     overflow: hidden;
 }
 
-/* Painel Esquerdo - estrutura do arquivo que funciona */
 .login-promo-panel {
     flex-basis: 50%;
     color: white;
@@ -127,7 +124,6 @@ nav.main-nav {
     left: 20px;
 }
 
-/* Logos - usando a estrutura que funciona */
 .logo-governo {
     position: absolute;
     bottom: 20px;
@@ -142,11 +138,10 @@ nav.main-nav {
 .logo-integra {
     position: absolute;
     bottom: 20px;
-    right: 20px; /* Corrigido de -1070px para 20px */
+    right: 20px;
     height: 90px;
 }
 
-/* Painel Direito */
 .login-form-panel {
     flex-basis: 70%;
     background-color: #FFFFFF;
@@ -159,7 +154,6 @@ nav.main-nav {
     box-shadow: -10px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Formulário de Cadastro --- */
 #cadastro-form {
     width: 100%;
     max-width: 800px;
@@ -285,14 +279,12 @@ nav.main-nav {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Responsividade para imagens */
 .overlapping-image {
     height: 600px;
     object-fit: cover;
     width: 100%;
 }
 
-/* Media queries organizadas */
 @media (max-width: 1400px) {
     .overlapping-image { 
         height: 350px; 
@@ -335,7 +327,7 @@ nav.main-nav {
     }
     
     .logo-integra {
-        right: 20px; /* Mantém a posição correta mesmo em telas menores */
+        right: 20px;
     }
 }
 

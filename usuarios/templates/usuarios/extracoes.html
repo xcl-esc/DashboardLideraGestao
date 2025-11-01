@@ -18,13 +18,6 @@
     </div>
 
     <div class="dashboard-container">
-        <!-- <form method="get" class="caixa-form">
-            <label>Escolha a caixa:</label>
-            <select name="caixa" onchange="this.form.submit()">
-                {% for c in caixas %}
-                    <option value="{{ c }}" {% if c == caixa_escolhida %}selected{% endif %}>{{ c }}</option>
-                {% endfor %}
-            </select> -->
         </form>
 
         <h1>Escolha as automações para executar</h1>
@@ -33,7 +26,6 @@
             {% csrf_token %}
             <label><input type="checkbox" name="automacoes" value="passivo"> Automação Passivo</label><br>
             <label><input type="checkbox" name="automacoes" value="captura"> Captura de Processos</label><br>
-            <!-- Adicione mais checkboxes conforme novas automações -->
             <br>
             <button type="submit" class="botao-desempenho">🚀 Executar</button>
         </form>

@@ -1,4 +1,3 @@
-# from log_config import setup_logging
 import time
 from datetime import datetime
 import math
@@ -26,14 +25,10 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-from .classesApoio import (MesIniMesFin, DataExtractor, MessageHandler, AbrirArquivos, PrimeiroPlanoNavegador,
-                          ExtraiNumerais, ProcessaValores, AlternadorDeAbas, NormalizaValoresMonetarios,
-                          DivideValorParaSIAPE, ProcessoSubdivisaoNumerica, VerificaSequenciaMesAno, TempoAleatorio,
+from .classesApoio import (MesIniMesFin, PrimeiroPlanoNavegador,
+                          ExtraiNumerais, ProcessaValores, NormalizaValoresMonetarios,
+                          DivideValorParaSIAPE, VerificaSequenciaMesAno, TempoAleatorio,
                           GerenciadorArquivos)
-from pywinauto.application import Application
-
-# # Configurar logging usando setup_logging
-# setup_logging()
 
 class TotalNotFoundException(Exception):
     pass
@@ -283,22 +278,6 @@ class SelecaoUnidade:
         except TimeoutException:
             logging.error('Timeout ao tentar localizar o elemento de seleção de unidade.')
             return
-
-# class VisualizacaoDetalhada:
-#     def __init__(self, navegador):
-#         self.driver = navegador
-
-#     def visualizar_detalhado(self):
-#         logging.info('Iniciando o processo de visualização detalhada.')
-#         time.sleep(TempoAleatorio().tempo_aleatorio())  # Simula comportamento humano
-
-#         try:
-#             WebDriverWait(self.driver, 10).until(
-#                 EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div[2]/form/div/div[4]/div[1]/a'))).click()
-#             logging.info('Botão de visualização detalhada clicado com sucesso.')
-#             time.sleep(TempoAleatorio().tempo_aleatorio())  # Simula comportamento humano
-#         except TimeoutException:
-#             logging.error("Elemento de visualização detalhada não encontrado ou não clicável dentro do tempo limite.")
 
 class VisualizacaoDetalhada:
     def __init__(self, navegador):
@@ -1098,44 +1077,46 @@ class AnexoSei:
 
     def inserir_anexo(self):
         logging.info(f'Iniciando a inserção do anexo: {self.arquivo}.')
-        try:
-            app = Application().connect(title_re="Abrir")
-            time.sleep(0.5)
-            dlg = app.window(title_re="Abrir")
-            time.sleep(0.5)
+        if sys.platform == "win32":
+            from pywinauto.application import Application
+            try:
+                app = Application().connect(title_re="Abrir")
+                time.sleep(0.5)
+                dlg = app.window(title_re="Abrir")
+                time.sleep(0.5)
 
-            # Verificar se o caminho já é absoluto
-            if os.path.isabs(self.arquivo):
-                # Se já é caminho absoluto, usar diretamente
-                caminho = self.arquivo
-                logging.info(f'Usando caminho absoluto fornecido: {caminho}')
-            else:
-                # Se é caminho relativo, construir baseado no diretório do script
-                if getattr(sys, 'frozen', False):
-                    caminho_script_atual = os.path.dirname(sys.executable)
+                # Verificar se o caminho já é absoluto
+                if os.path.isabs(self.arquivo):
+                    # Se já é caminho absoluto, usar diretamente
+                    caminho = self.arquivo
+                    logging.info(f'Usando caminho absoluto fornecido: {caminho}')
                 else:
-                    caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
+                    # Se é caminho relativo, construir baseado no diretório do script
+                    if getattr(sys, 'frozen', False):
+                        caminho_script_atual = os.path.dirname(sys.executable)
+                    else:
+                        caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
 
-                # Usar o arquivo como caminho relativo ao diretório do script
-                caminho = os.path.join(caminho_script_atual, self.arquivo)
-                logging.info(f'Construindo caminho relativo: {caminho}')
+                    # Usar o arquivo como caminho relativo ao diretório do script
+                    caminho = os.path.join(caminho_script_atual, self.arquivo)
+                    logging.info(f'Construindo caminho relativo: {caminho}')
 
-            # Verificar se o arquivo existe antes de tentar anexar
-            if not os.path.exists(caminho):
-                logging.error(f'ERRO: Arquivo não encontrado no caminho: {caminho}')
-                raise FileNotFoundError(f'Arquivo não encontrado: {caminho}')
+                # Verificar se o arquivo existe antes de tentar anexar
+                if not os.path.exists(caminho):
+                    logging.error(f'ERRO: Arquivo não encontrado no caminho: {caminho}')
+                    raise FileNotFoundError(f'Arquivo não encontrado: {caminho}')
 
-            caminho_com_formato_dlg = caminho.replace(" ", "{SPACE}")
+                caminho_com_formato_dlg = caminho.replace(" ", "{SPACE}")
 
-            dlg.type_keys(caminho_com_formato_dlg)
-            logging.info(f'Caminho do arquivo inserido na janela de diálogo: {caminho}.')
-            time.sleep(0.5)
-            dlg.type_keys('{ENTER}')
-            logging.info('Arquivo anexado com sucesso.')
+                dlg.type_keys(caminho_com_formato_dlg)
+                logging.info(f'Caminho do arquivo inserido na janela de diálogo: {caminho}.')
+                time.sleep(0.5)
+                dlg.type_keys('{ENTER}')
+                logging.info('Arquivo anexado com sucesso.')
 
-        except Exception as e:
-            logging.error(f'Erro ao inserir o anexo "{self.arquivo}": {str(e)}')
-            raise  # Re-propagar a exceção para que seja tratada pela classe pai
+            except Exception as e:
+                logging.error(f'Erro ao inserir o anexo "{self.arquivo}": {str(e)}')
+                raise  # Re-propagar a exceção para que seja tratada pela classe pai
 
 class DocumentosArvoreSei:
     def __init__(self, navegador, texto_parcial):
@@ -3031,64 +3012,6 @@ class DownloadPDFSEI:
             print("Falha ao baixar o PDF, status code:", response.status_code)
 
         return arquivo_pdf
-
-
-
-
-        # try:
-        #     # Localizar o elemento <a> pelo seletor apropriado (classe neste caso)
-        #     link_element = WebDriverWait(self.driver, 10).until(
-        #         EC.presence_of_element_located((By.CLASS_NAME, "ancoraVisualizacaoArvore"))
-        #     )
-        #
-        #     # Colocar o foco no elemento sem clicar
-        #     self.driver.execute_script("arguments[0].focus();", link_element)
-        #     print("Foco colocado no elemento com sucesso.")
-        #
-        #     # Usar ActionChains para enviar TABs
-        #     actions = ActionChains(self.driver)
-        #
-        #     for _ in range(8):  # Enviar 7 TABs
-        #         actions.send_keys(Keys.TAB)
-        #         actions.perform()
-        #         time.sleep(0.5)  # Pequeno intervalo entre TABs para simular comportamento humano
-        #
-        #     # Enviar ENTER
-        #     actions.send_keys(Keys.ENTER).perform()
-        #     print("ENTER enviado após os TABs.")
-        #     time.sleep(5)
-        #
-        # except Exception as e:
-        #     print(f"Erro ao interagir com o elemento: {e}")
-        #
-        # try:
-        #     app = Application().connect(title_re="Salvar como")
-        #     time.sleep(0.5)
-        #     dlg = app.window(title_re="Salvar como")
-        #     time.sleep(0.5)
-        #
-        #     # Verifica se o script está rodando como um executável
-        #     if getattr(sys, 'frozen', False):
-        #         caminho_script_atual = os.path.dirname(sys.executable)
-        #     else:
-        #         caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
-        #
-        #     # Concatenar com o subdiretório 'downloads'
-        #     pasta = os.path.join(caminho_script_atual, 'downloads')
-        #     arquivo = f"{numero_nota_tec}.pdf"
-        #     caminho = os.path.join(pasta, arquivo)
-        #
-        #
-        #     dlg.type_keys(caminho)
-        #     logging.info(f'Caminho do arquivo inserido na janela de diálogo: {caminho}.')
-        #     time.sleep(2)
-        #     dlg.type_keys('{ENTER}')
-        #     time.sleep(2)
-        #     logging.info('Arquivo anexado com sucesso.')
-        #     return caminho
-        #
-        # except Exception as e:
-        #     logging.error(f'Erro ao inserir o anexo "{self.arquivo}": {str(e)}')
 
 class EstatisticasSEI:
     def __init__(self, navegador):

@@ -41,7 +41,6 @@ class GerenciadorDB:
                 cursor.execute("ALTER TABLE processos ADD COLUMN data_conclusao TEXT;")
                 print("Coluna 'data_conclusao' adicionada com sucesso.")
             except sqlite3.OperationalError as e:
-                # O erro ocorrerá se a coluna já existir, o que é o comportamento esperado
                 if "duplicate column name" in str(e):
                     pass 
                 else:
@@ -92,7 +91,7 @@ class GerenciadorDB:
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             # Pega todos os processos ainda não concluídos
-            cursor.execute("SELECT processo_numero FROM processos WHERE data_concluido is NULL")
+            cursor.execute("SELECT processo_numero FROM processos WHERE data_conclusao is NULL")
             processos_no_banco = {row[0] for row in cursor.fetchall()}
 
             # Processos que sumiram

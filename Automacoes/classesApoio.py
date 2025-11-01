@@ -5,23 +5,19 @@ import re
 import shutil
 import sys
 import time
-import tkinter as tk
+
 from datetime import datetime, date
 from textwrap import wrap
-from tkinter import filedialog
 
 from logging.handlers import RotatingFileHandler
 import glob
 from datetime import datetime
 
 import pandas as pd
-import pygetwindow as gw
 import unicodedata
 from Levenshtein import distance
 from PyPDF2 import PdfMerger
-from PyQt5 import QtWidgets, QtGui, QtCore
 from fpdf import FPDF
-from pywinauto.application import Application
 from reportlab.lib.pagesizes import A4, letter
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, PageBreak, Paragraph, Spacer, Image, Frame, PageTemplate
@@ -35,20 +31,6 @@ class TempoAleatorio:
     def tempo_aleatorio(self):
         return self.tempo
 
-class AbrirArquivos:
-    def __init__(self):
-        # Inicializa o Tkinter e esconde a janela principal
-        self.root = tk.Tk()
-        self.root.withdraw()
-        self.root.iconbitmap("imagens\\icon2.ico")
-
-    def abre_arquivo_excel(self):
-        # Abre a janela de diálogo para escolher o arquivo Excel
-        file_path = filedialog.askopenfilename(
-            title="Selecione o arquivo Excel",
-            filetypes=[("Arquivos Excel", "*.xlsx")]  # Filtra para mostrar apenas arquivos .xlsx
-        )
-        return file_path
 
 class AlternadorDeAbas:
     def __init__(self, navegador):
@@ -60,19 +42,18 @@ class AlternadorDeAbas:
 
     def alternar(self, sistema):
         """Alterna para a aba correspondente ao sistema especificado."""
-        self.atualizar_abas()  # Atualiza a lista de abas antes de alternar
+        self.atualizar_abas()
 
         if sistema == 1:
-            self.aba_atual = 0  # Aba do SEI
+            self.aba_atual = 0
         elif sistema == 2:
-            self.aba_atual = 1  # Aba do eSIAPE
+            self.aba_atual = 1
         elif sistema == 3:
-            self.aba_atual = 2  # Aba do SIGEPE
+            self.aba_atual = 2
         else:
             print("Sistema desconhecido. Mantendo a aba atual.")
             return
 
-        # Verificar se o índice solicitado está dentro do alcance
         if self.aba_atual < len(self.abas):
             self.driver.switch_to.window(self.abas[self.aba_atual])
         else:
@@ -83,14 +64,12 @@ class StringNormalizer:
         pass
 
     def normalize(self, text):
-        # Se o texto for uma lista, aplicar a normalização em cada elemento
         if isinstance(text, list):
             return [self._normalize_string(s) for s in text]
         else:
             return self._normalize_string(text)
 
     def _normalize_string(self, text):
-        # Convertendo para maiúsculas
         text = text.upper()
 
         # Substituindo 'ç' por 'c'
@@ -299,7 +278,7 @@ class BeneficioInicial:
         return round(valor_inicial, 2)
 
 
-class MessageHandler:
+# class MessageHandler:
     """
     Gerencia mensagens na interface gráfica com formatação colorida.
 
@@ -330,25 +309,8 @@ class MessageHandler:
         timestamp = time.strftime("[%d/%m/%Y %H:%M:%S]")
         message_with_time = f"{timestamp} {message}"
 
-        # Definir a cor conforme o tipo de mensagem
-        color = QtGui.QColor(0, 170, 0)  # Verde para info (padrão)
-        if message_type == "error":
-            color = QtGui.QColor(255, 0, 0)  # Vermelho para erros
-        elif message_type == "warning":
-            color = QtGui.QColor(255, 165, 0)  # Laranja para avisos (mais visível que amarelo)
-
         try:
-            # Mover o cursor para o final do texto
-            self.text_edit.moveCursor(QtGui.QTextCursor.End)
-
-            # Mudar a cor do texto
-            self.text_edit.setTextColor(color)
-
-            # Inserir a mensagem
             self.text_edit.append(message_with_time)
-
-            # Resetar para a cor padrão
-            self.text_edit.setTextColor(QtGui.QColor(0, 170, 0))
 
             # Garantir que o cursor fique visível
             self.text_edit.ensureCursorVisible()
@@ -356,9 +318,6 @@ class MessageHandler:
             # Chamar o callback se fornecido
             if self.callback:
                 self.callback()
-
-            # Processar eventos pendentes para atualizar a interface
-            QtWidgets.QApplication.processEvents()
 
         except Exception as e:
             print(f"Erro ao adicionar mensagem no log: {str(e)}")
@@ -427,6 +386,11 @@ class Singleton(type):
         if cls not in cls._instances:
             cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
         return cls._instances[cls]
+import sys
+import re
+
+if sys.platform == "win32":
+    import pygetwindow as gw
 
 class PrimeiroPlanoNavegador:
     def __init__(self, navegador, title_pattern):
@@ -434,22 +398,29 @@ class PrimeiroPlanoNavegador:
         self.title_pattern = title_pattern
 
     def enviar_primeiro_plano(self):
-        # Obtém todas as janelas abertas
-        todas_janelas = gw.getAllWindows()
+        if sys.platform == "win32": # Obtém todas as janelas abertas
+                
+            try:
+                import pygetwindow as gw # Importação local e condicional
+            except ImportError:
+                print("pygetwindow não instalado. Recurso de primeiro plano indisponível.")
+                return
 
-        # Filtra as janelas que correspondem ao padrão de título usando expressão regular
-        chrome_windows = [janela for janela in todas_janelas if re.search(self.title_pattern, janela.title)]
+            todas_janelas = gw.getAllWindows()
 
-        if chrome_windows:
-            for window in chrome_windows:
-                try:
-                    window.activate()
-                    break
-                except Exception as e:
-                    print(f'Não foi possível ativar a janela: {e}')
-                    continue
+            # Filtra as janelas que correspondem ao padrão de título usando expressão regular
+            chrome_windows = [janela for janela in todas_janelas if re.search(self.title_pattern, janela.title)]
 
-        # Maximiza a janela do navegador
+            if chrome_windows:
+                for window in chrome_windows:
+                    try:
+                        window.activate()
+                        break
+                    except Exception as e:
+                        print(f'Não foi possível ativar a janela: {e}')
+                        continue
+
+            # Maximiza a janela do navegador
         self.driver.maximize_window()
 
 class CalculadoraDias:
@@ -553,8 +524,6 @@ class ComparaNomes:
         # Calcular a distância de Levenshtein
         dist = distance(teste1, teste2)
 
-        # print("A distância de Levenshtein é", dist)
-
         # Decidir com base na distância
         if dist <= 3:
             return True
@@ -636,23 +605,25 @@ class DeclaracaoNaoAjuizamento:
 
     def salva_anexo_email_SEI(self, arquiv):
         time.sleep(3)
-        app = Application().connect(title_re="Abrir")
-        time.sleep(0.5)
-        dlg = app.window(title_re="Abrir")
-        time.sleep(0.5)
+        if sys.platform == "win32":
+            from pywinauto.application import Application
+            app = Application().connect(title_re="Abrir")
+            time.sleep(0.5)
+            dlg = app.window(title_re="Abrir")
+            time.sleep(0.5)
 
-        # Obter o caminho absoluto do script Python atual
-        caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
+            # Obter o caminho absoluto do script Python atual
+            caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
 
-        # Concatenar com o subdiretório 'pdfs'
+            # Concatenar com o subdiretório 'pdfs'
 
-        caminho = os.path.join(caminho_script_atual, arquiv)
-        dlg.type_keys(caminho)
-        time.sleep(0.5)
-        # dlg3.type_keys('{TAB}')
-        # dlg3.type_keys('{TAB}')
-        dlg.type_keys('{ENTER}')
-        time.sleep(0.5)
+            caminho = os.path.join(caminho_script_atual, arquiv)
+            dlg.type_keys(caminho)
+            time.sleep(0.5)
+            # dlg3.type_keys('{TAB}')
+            # dlg3.type_keys('{TAB}')
+            dlg.type_keys('{ENTER}')
+            time.sleep(0.5)
         return True
 
     def justificar_texto(self, c, texto, x, y, max_width, font_size):
@@ -686,25 +657,27 @@ class AbreArquivoNavegador:
         self.arquivo = arquivo
 
     def abrir_arquivo(self):
-        app = Application().connect(title_re="Abrir")
-        time.sleep(0.5)
-        dlg = app.window(title_re="Abrir")
-        time.sleep(0.5)
+        if sys.platform == "win32":
+            from pywinauto.application import Application
+            app = Application().connect(title_re="Abrir")
+            time.sleep(0.5)
+            dlg = app.window(title_re="Abrir")
+            time.sleep(0.5)
 
-        # Verifica se o script está rodando como um executável
-        if getattr(sys, 'frozen', False):
-            caminho_script_atual = os.path.dirname(sys.executable)
-        else:
-            caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
+            # Verifica se o script está rodando como um executável
+            if getattr(sys, 'frozen', False):
+                caminho_script_atual = os.path.dirname(sys.executable)
+            else:
+                caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
 
-        # Concatenar com o subdiretório 'pdfs'
-        pasta = os.path.join(caminho_script_atual)
-        caminho = os.path.join(pasta, self.arquivo)
-        caminho_com_formato_dlg = caminho.replace(" ", "{SPACE}")
-        dlg.type_keys(caminho_com_formato_dlg)
-        time.sleep(0.5)
-        dlg.type_keys('{ENTER}')
-        time.sleep(1)
+            # Concatenar com o subdiretório 'pdfs'
+            pasta = os.path.join(caminho_script_atual)
+            caminho = os.path.join(pasta, self.arquivo)
+            caminho_com_formato_dlg = caminho.replace(" ", "{SPACE}")
+            dlg.type_keys(caminho_com_formato_dlg)
+            time.sleep(0.5)
+            dlg.type_keys('{ENTER}')
+            time.sleep(1)
 
 class PDFManager:
     def __init__(self, destination_directory, new_filename):
@@ -849,19 +822,21 @@ class PdfFichaFinanceiraOficial:
         self.ano_mes = ano_mes
 
     def armazenar_pdf_ficha(self):
-        app = Application().connect(title=u'Salvar como', timeout=5)
-        dlg = app[u'Salvar como']
+        if sys.platform == "win32":
+            from pywinauto.application import Application
+            app = Application().connect(title=u'Salvar como', timeout=5)
+            dlg = app[u'Salvar como']
 
-        arquiv = self.mat_inst + self.ano_mes + ".pdf"
-        arquiv = arquiv.replace(" ", "{SPACE}")
-        caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
-        pasta = os.path.join(caminho_script_atual, 'FichasFinanceiras')
+            arquiv = self.mat_inst + self.ano_mes + ".pdf"
+            arquiv = arquiv.replace(" ", "{SPACE}")
+            caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
+            pasta = os.path.join(caminho_script_atual, 'FichasFinanceiras')
 
-        caminho = os.path.join(pasta, arquiv)
-        dlg.type_keys(caminho)
-        time.sleep(1)
-        dlg.type_keys('{ENTER}')
-        time.sleep(2)
+            caminho = os.path.join(pasta, arquiv)
+            dlg.type_keys(caminho)
+            time.sleep(1)
+            dlg.type_keys('{ENTER}')
+            time.sleep(2)
 
 class PdfMerge:
     def __init__(self, input_dir, output_dir, output_filename='merged.pdf'):
@@ -893,8 +868,6 @@ class PdfMerge:
 
 class InterfacePrimeiroPlano:
     def bring_window_to_front(self):
-        # Esta função trará a janela para o primeiro plano
-        # sem necessariamente alterar sua flag para sempre ficar no topo.
         self.activateWindow()
         self.raise_()
 
@@ -977,7 +950,7 @@ class VerificaSequenciaMesAno:
                     (lista_anos[i] < lista_anos[i - 1]) or \
                     (indice_mes_atual == 0 and lista_anos[i] != lista_anos[i - 1] + 1) or \
                     (indice_mes_atual != 0 and lista_anos[i] != lista_anos[i - 1]):
-                return f"Erro detectado entre {lista_meses[i - 1]} {lista_anos[i - 1]} e {lista_meses[i]} {lista_anos[i]}."
+                return f"Erro detectado entre {self.lista_meses[i - 1]} {lista_anos[i - 1]} e {self.lista_meses[i]} {lista_anos[i]}."
 
         return "Sequência correta."
 
@@ -1258,23 +1231,25 @@ class TermoCiencia:
 
     def salva_anexo_email_SEI(self, arquiv):
         time.sleep(3)
-        app = Application().connect(title_re="Abrir")
-        time.sleep(0.5)
-        dlg = app.window(title_re="Abrir")
-        time.sleep(0.5)
+        if sys.platform == "win32":
+            from pywinauto.application import Application
+            app = Application().connect(title_re="Abrir")
+            time.sleep(0.5)
+            dlg = app.window(title_re="Abrir")
+            time.sleep(0.5)
 
-        # Obter o caminho absoluto do script Python atual
-        caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
+            # Obter o caminho absoluto do script Python atual
+            caminho_script_atual = os.path.abspath(os.path.dirname(__file__))
 
-        # Concatenar com o subdiretório 'pdfs'
+            # Concatenar com o subdiretório 'pdfs'
 
-        caminho = os.path.join(caminho_script_atual, arquiv)
-        dlg.type_keys(caminho)
-        time.sleep(0.5)
-        # dlg3.type_keys('{TAB}')
-        # dlg3.type_keys('{TAB}')
-        dlg.type_keys('{ENTER}')
-        time.sleep(0.5)
+            caminho = os.path.join(caminho_script_atual, arquiv)
+            dlg.type_keys(caminho)
+            time.sleep(0.5)
+            # dlg3.type_keys('{TAB}')
+            # dlg3.type_keys('{TAB}')
+            dlg.type_keys('{ENTER}')
+            time.sleep(0.5)
         return True
 
     def justificar_texto(self, c, texto, x, y, max_width, font_size):

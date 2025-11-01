@@ -1,25 +1,25 @@
-# version: '3.8'
+services:
+  web:
+    build: .
+    container_name: lideragestao-web
+    command: python manage.py runserver 0.0.0.0:8000
+    working_dir: /django_extrator/LideraGestao
+    volumes:
+      - .:/django_extrator/LideraGestao
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - scheduler
 
-# services:
-#   # Serviço para o servidor web Django
-#   web:
-#     build: .
-#     command: python manage.py runserver 0.0.0.0:8000
-#     volumes:
-#       - .:/app
-#     ports:
-#       - "8000:8000"
-#     env_file:
-#       - .env
-#     depends_on:
-#       - scheduler
-
-#   # Serviço para a tarefa agendada (automação com o apscheduler)
-#   scheduler:
-#     build: .
-#     command: python manage.py runapscheduler
-#     volumes:
-#       - .:/app
-#     env_file:
-#       - .env
-#     restart: always # Garante que o agendador reinicie se cair
+  scheduler:
+    build: .
+    container_name: lideragestao-scheduler
+    working_dir: /django_extrator/LideraGestao
+    volumes:
+      - .:/django_extrator/LideraGestao
+    command: ["python", "manage.py", "runjobs", "hourly"]
+    env_file:
+      - .env
+    restart: always

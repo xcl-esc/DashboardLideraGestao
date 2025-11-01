@@ -36,7 +36,7 @@
     justify-content: center;
     align-items: center;
     transform-origin: center;
-    transition: transform 0.5s ease-in-out; /* Animação suave */
+    transition: transform 0.5s ease-in-out;
 }
 
 .center_estilizado {
@@ -61,7 +61,6 @@
     transition: content 0.5s ease-in-out;
 }
 
-/* Agulha do velocímetro */
 .needle_estilizado::before {
   content: '';
   position: absolute;
@@ -90,7 +89,6 @@
     text-transform: uppercase;
 }
 
-/* Cores diferentes para cada tipo */
 .velocimetro-diario .velocimetro-titulo {
     color: #4CAF50;
 }
@@ -99,7 +97,6 @@
     color: #2196F3;
 }
 
-/* Transições suaves */
 .needle_estilizado {
     transition: transform 0.3s ease-in-out;
 }

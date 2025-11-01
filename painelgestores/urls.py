@@ -6,7 +6,6 @@ from usuarios import views
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    # ✅ Primeiro redireciona a raiz para o login
     path("", lambda request: redirect("login")),
 
     path("login/", views.login_view, name="login"),

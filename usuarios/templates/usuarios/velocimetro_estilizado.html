@@ -9,10 +9,9 @@
 </div>
 
 <script>
-// Inicializa este velocímetro quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
         setSpeed('{{ id }}', {{ percentual }}, {{ angulo }});
-    }, 100); // Pequeno delay
+    }, 100);
 });
 </script>

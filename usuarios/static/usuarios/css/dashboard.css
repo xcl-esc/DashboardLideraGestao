@@ -1,4 +1,3 @@
-/* ======== VARIÁVEIS DE COR ======== */
 :root {
     --cor-escura-transparente: #030f187d;
     --cor-escura: #030f18;
@@ -8,7 +7,6 @@
     --cor-acao: #72a3bf;
 }
 
-/* ======== ESTILO GERAL ======== */
 body {
     font-family: 'Inter', sans-serif;
     background: var(--cor-clara);
@@ -19,7 +17,6 @@ body {
     color: var(--cor-intermediaria);
 }
 
-/* ======== NAVBAR ======== */
 .navbar {
     position: sticky;
     top: 0;
@@ -34,7 +31,6 @@ body {
     margin-bottom: 30px;
 }
 
-/* ======== CLIMA ======== */
 .topo-info {
     background: var(--cor-escura-transparente);
     backdrop-filter: blur(6px);
@@ -74,7 +70,6 @@ body {
     color: var(--cor-acao);
 }
 
-/* ======== CONTAINER PRINCIPAL ======== */
 .dashboard-container {
     max-width: 1200px;
     margin: 40px auto;
@@ -84,7 +79,6 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* ======== FORMULÁRIO DE CAIXA ======== */
 .caixa-form {
     text-align: center;
     margin-bottom: 30px;
@@ -116,7 +110,6 @@ body {
     border-color: var(--cor-acao);
 }
 
-/* ======== TÍTULO ======== */
 h1 {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
@@ -128,7 +121,6 @@ h1 {
     padding-bottom: 10px;
 }
 
-/* ======== CONTAINER DE GRÁFICOS ======== */
 .graficos-container {
     display: flex;
     justify-content: center;
@@ -147,7 +139,6 @@ h1 {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* ======== ESTATÍSTICAS ======== */
 .dashboard-stats {
     background: rgba(224, 232, 230, 0.6);
     backdrop-filter: blur(6px);
@@ -168,7 +159,6 @@ h1 {
     color: var(--cor-acao);
 }
 
-/* ======== NAVEGAÇÃO PARA DESEMPENHO ======== */
 .nav-desempenho {
     text-align: center;
     padding: 30px;
@@ -201,7 +191,6 @@ h1 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* ======== RESPONSIVIDADE ======== */
 @media (max-width: 768px) {
     .graficos-container {
         flex-direction: column;
