@@ -13,7 +13,7 @@ Sistema Django para gerenciamento de um dashboard para o desempenho de técnicos
 
 ## Como rodar o projeto
 
-Clone o repositório:
+1. Clone o repositório:
 ```bash
 git clone https://github.com/xcl-esc/DashboardLideraGestao.git
 
@@ -26,3 +26,11 @@ Conta de teste
 
 Ao criar uma conta use o codigo "123GESTOR" para ter acesso a todas as ab abas.
 
+
+## Observações
+
+O arquivo .env não está no repositório, configure suas variáveis de ambiente locais.
+
+O banco de dados usado é SQLite por padrão, mas pode ser configurado para PostgreSQL.
+
+Certifique-se de ter o Docker rodando caso queira que ele atualize as tabelas.
